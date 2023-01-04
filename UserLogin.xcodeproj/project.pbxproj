@@ -11,9 +11,6 @@
 		B84707282953179400F1D566 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84707272953179400F1D566 /* SplashView.swift */; };
 		B847072A2953179800F1D566 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B84707292953179800F1D566 /* Assets.xcassets */; };
 		B847072D2953179800F1D566 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B847072C2953179800F1D566 /* Preview Assets.xcassets */; };
-		B84707372953179800F1D566 /* UserLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84707362953179800F1D566 /* UserLoginTests.swift */; };
-		B84707412953179800F1D566 /* UserLoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84707402953179800F1D566 /* UserLoginUITests.swift */; };
-		B84707432953179800F1D566 /* UserLoginUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84707422953179800F1D566 /* UserLoginUITestsLaunchTests.swift */; };
 		B84707502953253000F1D566 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B847074F2953253000F1D566 /* GoogleService-Info.plist */; };
 		B84707532953263800F1D566 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B84707522953263800F1D566 /* FirebaseAuth */; };
 		B84707552953263800F1D566 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B84707542953263800F1D566 /* FirebaseFirestore */; };
@@ -50,10 +47,7 @@
 		B84707292953179800F1D566 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B847072C2953179800F1D566 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B84707322953179800F1D566 /* UserLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B84707362953179800F1D566 /* UserLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginTests.swift; sourceTree = "<group>"; };
 		B847073C2953179800F1D566 /* UserLoginUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserLoginUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B84707402953179800F1D566 /* UserLoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginUITests.swift; sourceTree = "<group>"; };
-		B84707422953179800F1D566 /* UserLoginUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B847074F2953253000F1D566 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B847075B29536E7500F1D566 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		B847075D2953717600F1D566 /* FirebaseUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserManager.swift; sourceTree = "<group>"; };
@@ -97,8 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				B84707242953179400F1D566 /* UserLogin */,
-				B84707352953179800F1D566 /* UserLoginTests */,
-				B847073F2953179800F1D566 /* UserLoginUITests */,
 				B84707232953179400F1D566 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -136,23 +128,6 @@
 				B847072C2953179800F1D566 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		B84707352953179800F1D566 /* UserLoginTests */ = {
-			isa = PBXGroup;
-			children = (
-				B84707362953179800F1D566 /* UserLoginTests.swift */,
-			);
-			path = UserLoginTests;
-			sourceTree = "<group>";
-		};
-		B847073F2953179800F1D566 /* UserLoginUITests */ = {
-			isa = PBXGroup;
-			children = (
-				B84707402953179800F1D566 /* UserLoginUITests.swift */,
-				B84707422953179800F1D566 /* UserLoginUITestsLaunchTests.swift */,
-			);
-			path = UserLoginUITests;
 			sourceTree = "<group>";
 		};
 		B84707582953314700F1D566 /* Model */ = {
@@ -344,7 +319,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84707372953179800F1D566 /* UserLoginTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,8 +326,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84707412953179800F1D566 /* UserLoginUITests.swift in Sources */,
-				B84707432953179800F1D566 /* UserLoginUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
