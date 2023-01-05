@@ -55,7 +55,6 @@ class FirebaseLogInManager : ObservableObject {
         if ( mail.isEmpty || password.isEmpty ) && phone.isEmpty  {
             loadingState = .failed(error: "please fill mail or password filed ")
         }else if ( ( mail.isEmpty && password.isEmpty )  && phone != "" ) {
-            
             logInToAccountByPhone()
         }else {
             logInToAccountByMail()
@@ -121,7 +120,7 @@ class FirebaseLogInManager : ObservableObject {
 
 
 
-enum LoadingState {
+enum LoadingState  : Equatable {
     case loading, success, failed(error : String), none
 }
 
