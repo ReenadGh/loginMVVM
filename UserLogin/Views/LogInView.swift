@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct LogInView: View {
-
-    @StateObject var  vm  : FirebaseLogInManager = FirebaseLogInManager()
+    
+    @StateObject var  vm: FirebaseLogInManager = FirebaseLogInManager()
+    
+    @State var mail: String = ""
+    @State var password: String = ""
+    @State var phone: String = ""
+    
     var body: some View {
         
-        
-        VStack  (alignment: .center , spacing: 20){
+        VStack  (alignment: .center , spacing: 20) {
             
             Text("Log In")
                 .font(.largeTitle)
-            MailTextFiledView()
-            PasswordTextFiledView()
+            
+            MailTextFiledView(mail: $mail)
+            
+            PasswordTextFiledView(password: $password)
+            
             Text("Or by phone number")
-             PhoneTextFiledView()
+            
+            PhoneTextFiledView(phone: $phone)
             
             Button {
-                vm.logInToAccount()
+                vm.logInToAccount(mail: mail, password: password, phone: phone)
             } label: {
                 Text("Log In")
                     .padding()
@@ -33,52 +41,27 @@ struct LogInView: View {
                     .cornerRadius(12)
             }
             
-            
             LogInStateView(loadingState: $vm.loadingState)
-            
- 
         }
         
         .overlay(
             ZStack {
-    
-                if let verificationID = vm.verificationID {
+                if vm.hasVerificationID {
                     codeAddingView()
-                    
                 }
             }
-            
         )
-        
         .environmentObject(vm)
     }
 }
 
-struct LogInView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogInView()
-            .environmentObject(FirebaseLogInManager())
-            .environmentObject(FirebaseUserManager())
-
-        
-        LogInStateView(loadingState: .constant(.loading))
-            .padding()
-            .previewLayout(.sizeThatFits)
-        
-        
-        MailTextFiledView()
-            .padding()
-            .previewLayout(.sizeThatFits)
-        
-    }
-}
-
 struct MailTextFiledView: View {
-    @EnvironmentObject var  vm  : FirebaseLogInManager
 
+    @Binding var mail: String
+    
     var body: some View {
         HStack {
-            TextField("enter mail" , text: $vm.mail)
+            TextField("enter mail" , text: $mail)
                 .padding()
             
         }
@@ -91,18 +74,17 @@ struct MailTextFiledView: View {
 
 struct PhoneTextFiledView: View {
     
-    @EnvironmentObject var  vm  : FirebaseLogInManager
-
+    @Binding var phone: String
+    
     var body: some View {
         HStack (spacing : 0){
             Text("+966")
                 .foregroundColor(.black).bold()
-            TextField("phone" , text: $vm.phone)
+            TextField("phone" , text: $phone)
                 .keyboardType(.numberPad)
                 .padding()
         }
         .padding(.horizontal , 10)
-
         .foregroundColor(.gray)
         .background(Color.gray.opacity(0.2))
         .cornerRadius(20)
@@ -111,11 +93,12 @@ struct PhoneTextFiledView: View {
 }
 
 struct PasswordTextFiledView: View {
-    @EnvironmentObject var  vm  : FirebaseLogInManager
 
+    @Binding var password: String
+    
     var body: some View {
         HStack {
-            SecureField("enter password" , text: $vm.password)
+            SecureField("enter password" , text: $password)
                 .padding()
             
         }
@@ -128,7 +111,8 @@ struct PasswordTextFiledView: View {
 
 
 struct LogInStateView: View {
-    @Binding var loadingState : LoadingState
+    
+    @Binding var loadingState: LoadingState
 
     var body: some View {
         switch loadingState {
@@ -148,5 +132,21 @@ struct LogInStateView: View {
                 .imageScale(.large)
                 .foregroundColor(.green)
         }
+    }
+}
+
+
+
+
+struct LogInView_Previews: PreviewProvider {
+    static var previews: some View {
+        LogInView()
+            .environmentObject(FirebaseLogInManager())
+            .environmentObject(FirebaseUserManager())
+
+
+        
+    
+        
     }
 }

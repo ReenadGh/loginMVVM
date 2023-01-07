@@ -14,23 +14,48 @@ import FirebaseFirestoreSwift
 
 
 
-class FirebaseLogInManager : ObservableObject {
+protocol LoginProtocol: AnyObject {
+    func logInToAccountByMail(mail: String, password: String)
+    func logInToAccount(mail: String, password: String, phone: String)
+    func logInToAccountByPhone(phone: String)
+    func verifyToken(smsCode: String)
+}
+
+
+
+class FirebaseLogInManager :  ObservableObject {
     
-    @Published var mail : String = ""
-    @Published var phone : String = ""
-    @Published var password : String = ""
+ 
     @Published var verificationID : String?
-    @Published var smsCode : String = ""
+    @Published var loadingState : LoadingState = .none
+    @Published var hasVerificationID = false
 
     let auth  : Auth
-    @Published var loadingState : LoadingState = .none
     
     init () {
         auth = Auth.auth()
     }
-
     
-    func logInToAccountByMail() {
+    
+    func checkMail(mail: String) -> Bool {
+        if mail.contains("@") {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+}
+
+extension FirebaseLogInManager : LoginProtocol {
+  
+    
+    
+    
+    func logInToAccountByMail(mail: String, password: String) {
+        
+        guard checkMail(mail: mail) else { return }
+        
         self.loadingState = .loading
         auth.signIn(withEmail: mail, password: password ){ _ , error in
             if let error = error {
@@ -49,20 +74,20 @@ class FirebaseLogInManager : ObservableObject {
         
     }
     
-    func logInToAccount() {
+    func logInToAccount(mail: String, password: String, phone: String) {
         self.loadingState = .loading
       
-        if ( mail.isEmpty || password.isEmpty ) && phone.isEmpty  {
+        if ( mail.isEmpty || password.isEmpty ) , phone.isEmpty  {
             loadingState = .failed(error: "please fill mail or password filed ")
-        }else if ( ( mail.isEmpty && password.isEmpty )  && phone != "" ) {
-            logInToAccountByPhone()
+        }else if   mail.isEmpty ,  password.isEmpty , phone != ""  {
+            logInToAccountByPhone(phone: phone)
         }else {
-            logInToAccountByMail()
+            logInToAccountByMail(mail: mail, password: password)
         }
         
     }
 
-    private func logInToAccountByPhone() {
+     func logInToAccountByPhone(phone : String ) {
         
         self.loadingState = .loading
         PhoneAuthProvider.provider()
@@ -72,15 +97,14 @@ class FirebaseLogInManager : ObservableObject {
                   print(error.localizedDescription)
                 return
               }
-              self.verificationID = verificationid
+              self.verificationID =  verificationid ?? ""
+              self.hasVerificationID = true
               
           }
         
     }
     
-    
-    
-     func verifyToken(){
+     func verifyToken(smsCode: String){
         self.loadingState = .loading
 
         guard let verificationID = verificationID else {
@@ -88,19 +112,23 @@ class FirebaseLogInManager : ObservableObject {
             return
         }
          
-         if smsCode != "" {
-      
+         if !smsCode.isEmpty {
+      print (smsCode)
         let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID , verificationCode: smsCode)
-        
-        auth.signIn(with: credential){ result , error in
-            if let error = error {
+             
+             auth.signIn(with: credential){ result , error in
+                 if let error = error {
                 self.loadingState = .failed(error: error.localizedDescription)
                 return
             }
+                 print (smsCode)
+
             self.loadingState = .success
-            
+                 print (smsCode)
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.loadingState = .none
+                print (smsCode)
 
             }
 
@@ -111,20 +139,27 @@ class FirebaseLogInManager : ObservableObject {
         
 
     }
-
-
+    
     
     
     
 }
-
-
 
 enum LoadingState  : Equatable {
-    case loading, success, failed(error : String), none
+    case loading
+    case  success
+    case failed(error : String)
+    case none
 }
 
 
+
+protocol UserManagerProtocol {
+    
+    func fetchUser()
+    func isUserLoggedin()-> Bool
+    func signOutFromAccout()
+}
 class FirebaseUserManager : ObservableObject {
     
     @Published var user : User = .init()
@@ -139,6 +174,12 @@ class FirebaseUserManager : ObservableObject {
          self.fetchUser()
 
     }
+    
+    
+
+}
+
+extension FirebaseUserManager : UserManagerProtocol {
     
     func fetchUser() {
 
@@ -156,21 +197,16 @@ class FirebaseUserManager : ObservableObject {
             }
             
         }
-
-   
-
-        
         
     }
-    
-    
-    
     
 
     func isUserLoggedin()-> Bool {
-        self.user.id != ""
+         !self.user.id.isEmpty
     }
-    func signOutFromAccout () {
+    
+    
+    func signOutFromAccout() {
         do{
             try auth.signOut()
             user = .init()

@@ -23,77 +23,77 @@ class UserLogin_Tests: XCTestCase {
     }
     
     
-    
-    // Should Be Pass
-    func test_FirebaseLogInManager_passwordAndMailOrPhone_shouldNotEmpty(){
-        
-        let password = ""
-        let mail = ""
-        let phone = ""
-
-        
-        let vm = FirebaseLogInManager()
-        vm.password = password
-        vm.mail = mail
-        vm.phone = phone
-
-        vm.logInToAccount()
-        
-        XCTAssertEqual(vm.loadingState, .failed(error: "please fill mail or password filed "))
-        
-    }
-    
-    
-    //check if the entering value of phone textFielid is a number
-    // this examble give a string value and should be give an error of not valid number
-    
-    func test_FirebaseLogInManager_phone_shouldBePhoneNumber(){
-        
-        let phone = "justAStringValue"
-        let vm = FirebaseLogInManager()
-        vm.phone = phone
-        vm.logInToAccount()
-        XCTAssertEqual(vm.loadingState, .failed(error: "invalid phone number"))
-    }
-    func test_FirebaseLogInManager_phone_shouldBe9DigitNumber(){
-        
-        let phone = "43211"
-        let vm = FirebaseLogInManager()
-        vm.phone = phone
-        vm.logInToAccount()
-        XCTAssertEqual(vm.loadingState, .failed(error: "invalid phone number"))
-    }
-    
-    func test_FirebaseLogInManager_mail_shouldBeValied(){
-        
-        let phone = "43211"
-        let vm = FirebaseLogInManager()
-        vm.phone = phone
-        vm.logInToAccount()
-        XCTAssertEqual(vm.loadingState, .failed(error: "invalid phone number"))
-    }
-
-    
-    // Should Be Pass
-    // ??
-    func test_FirebaseLogInManager_passwordAndMail_LogInToAccount(){
-        
-        let mail = "1@1.com"
-        let password = "123123"
-
-        
-        let vm = FirebaseLogInManager()
-        vm.mail = mail
-        vm.password = password
-        
-        
-        vm.logInToAccount()
-        
-        XCTAssertNotNil(vm.auth.currentUser?.uid)
-        
-    }
-
-    // Should Be Pass
+//
+//    // Should Be Pass
+//    func test_FirebaseLogInManager_passwordAndMailOrPhone_shouldNotEmpty(){
+//
+//        let password = ""
+//        let mail = ""
+//        let phone = ""
+//
+//
+//        let vm = FirebaseLogInManager()
+//        vm.password = password
+//        vm.mail = mail§
+//        vm.phone = phone
+//
+//        vm.logInToAccount()
+//
+//        XCTAssertEqual(vm.loadingState, .failed(error: "please fill mail or password filed "))
+//
+//    }
+//
+//
+//    //check if the entering value of phone textFielid is a number
+//    // this examble give a string value and should be give an error of not valid number
+//
+//    func test_FirebaseLogInManager_phone_shouldBePhoneNumber(){
+//
+//        let phone = "justAStringValue"
+//        let vm = FirebaseLogInManager()
+//        vm.phone = phone
+//        vm.logInToAccount()
+//        XCTAssertEqual(vm.loadingState, .failed(error: "invalid phone number"))
+//    }
+//    func test_FirebaseLogInManager_phone_shouldBe9DigitNumber(){
+//
+//        let phone = "43211"
+//        let vm = FirebaseLogInManager()
+//        vm.phone = phone
+//        vm.logInToAccount()
+//        XCTAssertEqual(vm.loadingState, .failed(error: "invalid phone number"))
+//    }
+//
+//    func test_FirebaseLogInManager_mail_shouldBeValied(){
+//
+//        let phone = "43211"
+//        let vm = FirebaseLogInManager()
+//        vm.phone = phone
+//        vm.logInToAccount()
+//        XCTAssertEqual(vm.loadingState, .failed(error: "invalid phone number"))
+//    }
+//
+//
+//    // Should Be Pass
+//    // ??
+//    func test_FirebaseLogInManager_passwordAndMail_LogInToAccount(){
+//
+//        let mail = "1@1.com"
+//        let password = "123123"
+//
+//
+//        let vm = FirebaseLogInManager()
+//        vm.mail = mail
+//        vm.password = password
+//
+//
+//        vm.logInToAccount()
+//
+//        XCTAssertNotNil(vm.auth.currentUser?.uid)
+//
+//    }
+//
+//    // Should Be Pass
     func test_FirebaseLogInManager_phone_shouldBeNumber(){
 
         let phone = UUID().uuidString

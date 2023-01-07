@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "92"
             endingLineNumber = "92"
-            landmarkName = "test_FirebaseLogInManager_passwordAndMail_LogInToAccount()"
-            landmarkType = "7">
+            landmarkName = "UserLogin_Tests"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

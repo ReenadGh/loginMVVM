@@ -10,9 +10,22 @@ import Foundation
 
 struct User  : Codable {
     
-    var id   :    String    = ""
-    var name :    String    = ""
-    var mail :    String    = ""
-    var phone :   String    = ""
+    var id   :    String
+    var name :    String
+    var mail :    String
+    var phone :   String
+    
+    
+    init () {
+        
+        id = ""
+        name = ""
+        mail = ""
+        phone = ""
+        
+    }
 
 }
+
+
+

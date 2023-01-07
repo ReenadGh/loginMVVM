@@ -10,14 +10,15 @@ import SwiftUI
 struct codeAddingView: View {
     
     @EnvironmentObject var  vm  : FirebaseLogInManager
+    @State var smsCode : String = ""
 
     var body: some View {
         VStack {
             Spacer()
             Text("enter code from sms")
-            codeTextFiled()
+            codeTextFiled(smsCode: $smsCode)
             Button {
-                vm.verifyToken()
+                vm.verifyToken(smsCode: smsCode )
                 
             } label: {
                 Text("log in")
@@ -37,11 +38,11 @@ struct codeAddingView_Previews: PreviewProvider {
 }
 
 struct codeTextFiled: View {
-    @EnvironmentObject var  vm  : FirebaseLogInManager
+    @Binding var smsCode : String
 
     var body: some View {
         HStack {
-            TextField("enter code" , text: $vm.smsCode)
+            TextField("enter code" , text: $smsCode)
                 .padding()
             
         }
